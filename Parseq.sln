@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Parseq", "Parseq\Parseq.csproj", "{4BBE2F04-383E-494E-B467-8B00E66BEABA}"
 EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Test", "Test\Test.fsproj", "{F74FF5F8-A485-47BF-A326-50734A9AE41D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +15,10 @@ Global
 		{4BBE2F04-383E-494E-B467-8B00E66BEABA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4BBE2F04-383E-494E-B467-8B00E66BEABA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4BBE2F04-383E-494E-B467-8B00E66BEABA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F74FF5F8-A485-47BF-A326-50734A9AE41D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F74FF5F8-A485-47BF-A326-50734A9AE41D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F74FF5F8-A485-47BF-A326-50734A9AE41D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F74FF5F8-A485-47BF-A326-50734A9AE41D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
