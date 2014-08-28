@@ -5,34 +5,6 @@ Parseq
 
 Parseq is a monadic parser combinator library written for C#, It can parse context-sensitive, infinite-lookahead grammers.
 
-## Example
-
-This is a tiny Example of OptParser using Parseq.
-
-        static void Usage()
-        {
-            Console.WriteLine("sample [--foo | -f] [--bar <string> | -b <string>] args..");
-        }
-
-
-        var foo = Option.None<Boolean>();
-        var bar = Option.None<String>();
-
-        var commandLineParser = Combinator.Choice(
-                /* [--foo | -f] */
-                Prims.Satisfy("--foo").Or(Prims.Satisfy("-f"))
-                    .DoWhenSuccess(_ => foo = Option.Some(true)),
-                /* [--bar <string> | -b <string>] */
-                Prims.Satisfy("--bar").Or(Prims.Satisfy("-b"))
-                    .Right(Prims.Any<String>())
-                    .DoWhenSuccess(_ => bar = Option.Some(_)),
-                /* args... */
-                Prims.Any<String>())
-                .Many(1)
-                /* If no arguments are given, show usage */
-                .DoWhenFailure(Usage);
-
-
 ## Getting Started
 
 - **Install Parseq via NuGet**:
@@ -52,10 +24,32 @@ This is a tiny Example of OptParser using Parseq.
     or download snapshot from [zipball](https://github.com/linerlock/parseq/zipball) | [tarball](https://github.com/linerlock/parseq/tarball)
 
 Parseq provided as PCL (Portable Class Library).
+
 It works on .NET Framework 4 (or later), Silverlight 5, Windows Phone 8, .NET for Windows Store apps. 
+
+## Example
+
+This is a tiny commnad-line parser example:
+
+        var foo = Option.None<Boolean>();
+        var bar = Option.None<String>();
+
+        var commandLineParser = Combinator.Choice(
+                /* [--foo | -f] */
+                Prims.Satisfy("--foo").Or(Prims.Satisfy("-f"))
+                    .DoWhenSuccess(_ => foo = Option.Some(true)),
+                /* [--bar <string> | -b <string>] */
+                Prims.Satisfy("--bar").Or(Prims.Satisfy("-b"))
+                    .Right(Prims.Any<String>())
+                    .DoWhenSuccess(_ => bar = Option.Some(_)),
+                /* args... */
+                Prims.Any<String>())
+                .Many(1)
+                /* If no arguments are given, show usage */
+                .DoWhenFailure(() =>
+                    Console.WriteLine("sample [--foo | -f] [--bar <string> | -b <string>] args.."));
 
 ## LICENSE
 
 Parseq released under the [MIT License](https://raw.githubusercontent.com/linerlock/parseq/master/LICENSE).
-
 
