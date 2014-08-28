@@ -23,9 +23,14 @@ Parseq is a monadic parser combinator library written for C#, It can parse conte
 
     or download snapshot from [zipball](https://github.com/linerlock/parseq/zipball) | [tarball](https://github.com/linerlock/parseq/tarball)
 
-Parseq provided as PCL (Portable Class Library).
+## Target
 
-It works on .NET Framework 4 (or later), Silverlight 5, Windows Phone 8, .NET for Windows Store apps. 
+Parseq provided as PCL (Portable Class Library), it works on the following frameworks:
+
+- .NET Framework 4 (or later)
+- .NET for Windows Store apps
+- Silverlight 5
+- Windows Phone 8
 
 ## Example
 
