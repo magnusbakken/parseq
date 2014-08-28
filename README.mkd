@@ -36,23 +36,26 @@ Parseq provided as PCL (Portable Class Library), it works on the following frame
 
 This is a tiny commnad-line parser example:
 
+        /*
+         * sample [--foo|-f] [--bar <string>|-b <string>] args...
+         */
+
         var foo = Option.None<Boolean>();
         var bar = Option.None<String>();
 
         var commandLineParser = Combinator.Choice(
-                /* [--foo | -f] */
                 Prims.Satisfy("--foo").Or(Prims.Satisfy("-f"))
                     .DoWhenSuccess(_ => foo = Option.Some(true)),
-                /* [--bar <string> | -b <string>] */
                 Prims.Satisfy("--bar").Or(Prims.Satisfy("-b"))
                     .Right(Prims.Any<String>())
                     .DoWhenSuccess(_ => bar = Option.Some(_)),
-                /* args... */
                 Prims.Any<String>())
                 .Many(1)
-                /* If no arguments are given, show usage */
                 .DoWhenFailure(() =>
-                    Console.WriteLine("sample [--foo | -f] [--bar <string> | -b <string>] args.."));
+                    Console.WriteLine("sample [--foo|-f] [--bar <string>|-b <string>] args.."));
+
+        // Run
+        var results = commandLineParser(args.AsStream());
 
 ## LICENSE
 
