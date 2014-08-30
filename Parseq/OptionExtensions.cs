@@ -25,9 +25,62 @@ namespace Parseq
 {
     public static partial class Option
     {
+        public static T Case<TValue, T>(
+            this IOption<TValue> option,
+                 Func<T> none,
+                 Func<TValue, T> some)
+        {
+            if (option == null)
+                throw new ArgumentNullException("option");
+            if (none == null)
+                throw new ArgumentNullException("none");
+            if (some == null)
+                throw new ArgumentNullException("some");
+
+            return option.HasValue
+                ? some(option.Value)
+                : none();
+        }
+
         public static T Get<T>(this IOption<T> option)
         {
             return option.Value;
+        }
+
+        public static IOption<T> Try<T>(Func<T> valueFactory)
+        {
+            return Option.Try<T, Exception>(valueFactory);   
+        }
+
+        public static IOption<T> Try<T, TException>(Func<T> valueFactory)
+            where TException : Exception
+        {
+            try
+            {
+                return Option.Some<T>(valueFactory());
+            }
+            catch(TException)
+            {
+                return Option.None<T>();
+            }
+        }
+
+        public static IOption<T> TryMany<T>(Func<IOption<T>> valueFactory)
+        {
+            return Option.TryMany<T, Exception>(valueFactory);
+        }
+
+        public static IOption<T> TryMany<T, TException>(Func<IOption<T>> valueFactory)
+            where TException : Exception
+        {
+            try
+            {
+                return valueFactory();
+            }
+            catch (TException)
+            {
+                return Option.None<T>();
+            }
         }
     }
 
