@@ -70,8 +70,6 @@ type Spec () =
       ``Query-Expression Test`` () =
         Parseq.Option.Some(2).SelectMany(fun x ->
             Parseq.Option.Some(3).Select(fun y ->
-               x * y
-            )
-        )
+               x * y))
         |> Parseq.Option.Get
         |> should equal (2 * 3)

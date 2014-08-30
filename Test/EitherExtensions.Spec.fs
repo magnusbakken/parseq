@@ -100,8 +100,6 @@ type Spec () =
      ``Query-Expression Test`` () =
         Either.Right(2).SelectMany(fun x ->
             Either.Right(3).Select(fun y ->
-                x * y
-            )
-        )
+                x * y))
         |> Either.GetR
         |> should equal (2 * 3)
