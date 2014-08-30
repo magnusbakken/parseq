@@ -38,6 +38,8 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
+    <Compile Include="Delayed.Spec.fs" />
+    <Compile Include="DelayedExtensions.Spec.fs" />
     <Compile Include="Either.Spec.fs" />
     <Compile Include="EitherExtensions.Spec.fs" />
     <Compile Include="OptionExtensions.Spec.fs" />

@@ -36,6 +36,12 @@
     <!-- A reference to the entire .NET Framework is automatically included -->
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Delayed.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DelayedExtensions.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Either.cs" />
     <Compile Include="EitherExtensions.cs" />
     <Compile Include="Option.cs" />
