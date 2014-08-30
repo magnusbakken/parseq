@@ -36,6 +36,8 @@
     <!-- A reference to the entire .NET Framework is automatically included -->
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Either.cs" />
+    <Compile Include="EitherExtensions.cs" />
     <Compile Include="Option.cs" />
     <Compile Include="OptionExtensions.cs" />
     <Compile Include="Position.cs" />
