@@ -34,12 +34,12 @@ namespace Parseq
 
     public static partial class Delayed
     {
-        public static IDelayed<TValue> Value<TValue>(TValue value)
+        public static IDelayed<TValue> Create<TValue>(TValue value)
         {
             return new Delayed.ValueImpl<TValue>(value);
         }
 
-        public static IDelayed<TValue> ValueFactory<TValue>(Func<TValue> valueFactory)
+        public static IDelayed<TValue> Create<TValue>(Func<TValue> valueFactory)
         {
             return new Delayed.ValueFactoryImpl<TValue>(valueFactory);
         }

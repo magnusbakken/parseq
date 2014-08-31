@@ -31,35 +31,35 @@ open FsUnit.MsTest
 [<TestClass>]
 type Spec() =
     [<TestMethod>] member test.
-     ``Parseq.Delayed.Value(value).Select(selector).Value returns selector(value)`` () =
+     ``Parseq.Delayed.Create(value).Select(selector).Value returns selector(value)`` () =
         let value = 42 in
-        Parseq.Delayed.Value(value).Select(fun x -> x * 2).Value
+        Parseq.Delayed.Create(value).Select(fun x -> x * 2).Value
             |> should equal (value * 2)
 
     [<TestMethod>] member test.
-     ``Parseq.Delayed.ValueFactory(valueFactory).Select(selector).Value returns selector(valueFactory())`` () =
+     ``Parseq.Delayed.Create(valueFactory).Select(selector).Value returns selector(valueFactory())`` () =
         let valueFactory = Func<int>(fun () -> 42) in
-        Parseq.Delayed.ValueFactory(valueFactory).Select(fun x -> x * 2).Value
+        Parseq.Delayed.Create<int>(valueFactory).Select(fun x -> x * 2).Value
             |> should equal (valueFactory.Invoke() * 2)
 
     [<TestMethod>] member test.
-     ``Parseq.Delayed.Value(value).SelectMany(selector) returns selector(value)`` () =
+     ``Parseq.Delayed.Create(value).SelectMany(selector) returns selector(value)`` () =
         let value = 42 in
-        Parseq.Delayed.Value(value).SelectMany(fun x -> 
-            Parseq.Delayed.ValueFactory(fun () -> x * 2)).Value
+        Parseq.Delayed.Create(value).SelectMany(fun x -> 
+            Parseq.Delayed.Create<int>(fun () -> x * 2)).Value
             |> should equal (value * 2)
 
     [<TestMethod>] member test.
-     ``Parseq.Delayed.ValueFactory(valueFactory).SelectMany(selector) returns selector(valueFactory())`` () =
+     ``Parseq.Delayed.Create(valueFactory).SelectMany(selector) returns selector(valueFactory())`` () =
         let valueFactory = Func<int>(fun () -> 42) in
-        Parseq.Delayed.ValueFactory(valueFactory).SelectMany(fun x ->
-            Parseq.Delayed.ValueFactory(fun () -> x * 2)).Value
+        Parseq.Delayed.Create<int>(valueFactory).SelectMany(fun x ->
+            Parseq.Delayed.Create<int>(fun () -> x * 2)).Value
             |> should equal (valueFactory.Invoke() * 2)
 
     [<TestMethod>] member test.
      ``Query-Expression Test`` () =
-        Parseq.Delayed.ValueFactory(fun () -> 2).SelectMany(fun x ->
-            Parseq.Delayed.Value(3).SelectMany(fun y ->
-                Parseq.Delayed.ValueFactory(fun () -> 5).Select(fun z ->
+        Parseq.Delayed.Create<int>(fun () -> 2).SelectMany(fun x ->
+            Parseq.Delayed.Create<int>(3).SelectMany(fun y ->
+                Parseq.Delayed.Create<int>(fun () -> 5).Select(fun z ->
                     x * y * z))).Value
             |> should equal (2 * 3 * 5)

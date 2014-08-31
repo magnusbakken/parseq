@@ -31,27 +31,27 @@ open FsUnit.MsTest
 [<TestClass>]
 type Spec() =
     [<TestMethod>] member test.
-     ``Parseq.Delayed.Value(value).Value returns value`` () =
+     ``Parseq.Delayed.Create(value).Value returns value`` () =
         let value = 42 in
-        Parseq.Delayed.Value(value).Value
+        Parseq.Delayed.Create(value).Value
             |> should equal value
 
     [<TestMethod>] member test.
-     ``Parseq.Delayed.ValueFactory(valueFactory).Value returns valueFactory()`` () =
+     ``Parseq.Delayed.Create(valueFactory).Value returns valueFactory()`` () =
         let valueFactory = Func<int>(fun () -> 42) in
-        Parseq.Delayed.ValueFactory(valueFactory).Value
+        Parseq.Delayed.Create<int>(valueFactory).Value
             |> should equal (valueFactory.Invoke())
 
     [<TestMethod>] member test.
-     ``Parseq.Delayed.Value(value).HasValue always returns True`` () =
+     ``Parseq.Delayed.Create(value).HasValue always returns True`` () =
         let value = 42 in
-        Parseq.Delayed.Value(value).HasValue
+        Parseq.Delayed.Create(value).HasValue
             |> should be True
 
     [<TestMethod>] member test.
-     ``Parseq.Delayed.ValueFactory(valueFactory).HasValue returns whether the value has been created`` () =
+     ``Parseq.Delayed.Create(valueFactory).HasValue returns whether the value has been created`` () =
         let valueFactory = Func<int>(fun () -> 42) in
-        let delayed = Parseq.Delayed.ValueFactory(valueFactory) in
+        let delayed = Parseq.Delayed.Create<int>(valueFactory) in
         delayed.HasValue |> should be False;
         delayed.Value |> ignore;
         delayed.HasValue |> should be True
@@ -59,5 +59,5 @@ type Spec() =
     [<TestMethod>] member test.
      ``If the instance of Parseq.Delayed<T> interface treated as IOption<T>, the one's HasValue method always return true`` () =
         let valueFactory = Func<int>(fun () -> 42) in
-        (Parseq.Delayed.ValueFactory(valueFactory) :> IOption<int>).HasValue
+        (Parseq.Delayed.Create<int>(valueFactory) :> IOption<int>).HasValue
             |> should be True

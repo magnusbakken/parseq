@@ -45,7 +45,7 @@ namespace Parseq
             if (selector == null)
                 throw new ArgumentNullException("selector");
 
-            return Delayed.ValueFactory(() => selector(delayed.Value));
+            return Delayed.Create(() => selector(delayed.Value));
         }
 
         public static IDelayed<T1> SelectMany<T0, T1>(
