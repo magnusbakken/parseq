@@ -64,24 +64,6 @@ namespace Parseq
                 return Option.None<T>();
             }
         }
-
-        public static IOption<T> TryMany<T>(Func<IOption<T>> valueFactory)
-        {
-            return Option.TryMany<T, Exception>(valueFactory);
-        }
-
-        public static IOption<T> TryMany<T, TException>(Func<IOption<T>> valueFactory)
-            where TException : Exception
-        {
-            try
-            {
-                return valueFactory();
-            }
-            catch (TException)
-            {
-                return Option.None<T>();
-            }
-        }
     }
 
     public static class OptionExtensions
