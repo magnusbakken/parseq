@@ -23,6 +23,17 @@ using System;
 
 namespace Parseq
 {
+    public static partial class Delayed
+    {
+        public static T Force<T>(this IDelayed<T> delayed)
+        {
+            if (delayed == null)
+                throw new ArgumentNullException("delayed");
+
+            return delayed.Value;
+        }
+    }
+
     public static class DelayedExtensions
     {
         public static IDelayed<T1> Select<T0, T1>(
