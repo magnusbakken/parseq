@@ -38,6 +38,8 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
+    <Compile Include="CharBuffer.Spec.fs" />
+    <Compile Include="CharStream.Spec.fs" />
     <Compile Include="Delayed.Spec.fs" />
     <Compile Include="DelayedExtensions.Spec.fs" />
     <Compile Include="Either.Spec.fs" />
