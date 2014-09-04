@@ -46,6 +46,8 @@
     <Compile Include="EitherExtensions.Spec.fs" />
     <Compile Include="OptionExtensions.Spec.fs" />
     <Compile Include="Option.Spec.fs" />
+    <Compile Include="Parser.Spec.fs" />
+    <Compile Include="ParserExtensions.Spec.fs" />
     <Compile Include="Position.Spec.fs" />
     <Compile Include="Unit.Spec.fs" />
     <Compile Include="Reply.Spec.fs" />
