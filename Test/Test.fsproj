@@ -49,9 +49,9 @@
     <Compile Include="Parser.Spec.fs" />
     <Compile Include="ParserExtensions.Spec.fs" />
     <Compile Include="Position.Spec.fs" />
-    <Compile Include="Unit.Spec.fs" />
     <Compile Include="Reply.Spec.fs" />
     <Compile Include="ReplyExtensions.Spec.fs" />
+    <Compile Include="Unit.Spec.fs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="FsUnit.CustomMatchers">
