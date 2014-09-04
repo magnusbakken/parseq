@@ -24,7 +24,7 @@ using System.IO;
 
 namespace Parseq
 {
-    public class CharStream
+    internal class CharStream
         : IStream<Char>
         , IDisposable
     {

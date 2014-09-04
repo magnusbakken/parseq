@@ -26,7 +26,7 @@ using System.Text;
 
 namespace Parseq
 {
-    public class CharBuffer
+    internal class CharBuffer
         : System.IO.TextReader
     {
         public const Int32 EOF = -1;
