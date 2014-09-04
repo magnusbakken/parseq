@@ -25,6 +25,21 @@ namespace Parseq
 {
     public static class ReplyExtensions
     {
+        public static T Case<TToken, TResult, T>(
+            this IReply<TToken, TResult> reply,
+                 Func<IStream<TToken>, String, T> failure,
+                 Func<IStream<TToken>, TResult, T> success)
+        {
+            if (reply == null)
+                throw new ArgumentNullException("reply");
+            if (failure == null)
+                throw new ArgumentNullException("failure");
+            if (success == null)
+                throw new ArgumentNullException("success");
 
+            return reply.Case(
+                failure: _ => failure(reply.RestStream, _),
+                success: _ => success(reply.RestStream, _));
+        }
     }
 }

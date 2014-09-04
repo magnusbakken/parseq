@@ -27,3 +27,31 @@ open System.Linq
 open Parseq
 
 open FsUnit.MsTest
+
+[<TestClass>]
+type Spec () =
+    [<TestMethod>] member test.
+     ``Parseq.Reply.Success(restStream, value).Case(faliure, success) returns success(restStream, value)`` () =
+        let restStream = new Parseq.CharStream(new System.IO.StringReader("don't care")) in
+        let value = 42 in
+        let failure = Func<IStream<char>, string, (IStream<char> * int)>(fun restStream _ -> Tuple.Create(restStream, -1)) in
+        let success = Func<IStream<char>, int, (IStream<char> * int)>(fun restStream value -> Tuple.Create(restStream, value)) in
+        Parseq.Reply.Success(restStream, value).Case(failure, success)
+            |> fun (restStream', value') ->
+                restStream'
+                    |> should equal restStream;
+                value'
+                    |> should equal value
+
+    [<TestMethod>] member test.
+     ``Parseq.Reply.Failure(restStream, errorMessage).Case(faliure, success) returns failure(restStream, errorMessage)`` () =
+        let restStream = new Parseq.CharStream(new System.IO.StringReader("don't care")) in
+        let errorMessage = "error message" in
+        let failure = Func<IStream<char>, string, (IStream<char> * string)>(fun restStream errorMessage -> Tuple.Create(restStream, errorMessage)) in
+        let success = Func<IStream<char>, int, (IStream<char> * string)>(fun restStream value -> Tuple.Create(restStream, "don't care")) in
+        Parseq.Reply.Failure(restStream, errorMessage).Case(failure, success)
+            |> fun (restStream', errorMessage') ->
+                restStream'
+                    |> should equal restStream;
+                errorMessage'
+                    |> should equal errorMessage
