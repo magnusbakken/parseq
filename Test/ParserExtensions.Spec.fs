@@ -27,5 +27,3 @@ open System.Linq
 open Parseq
 
 open FsUnit.MsTest
-open NHamcrest
-open NHamcrest.Core
