@@ -38,16 +38,12 @@
   <ItemGroup>
     <Compile Include="CharBuffer.cs" />
     <Compile Include="CharStream.cs" />
-    <Compile Include="Delayed.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="DelayedExtensions.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Either.cs" />
-    <Compile Include="EitherExtensions.cs" />
-    <Compile Include="Option.cs" />
-    <Compile Include="OptionExtensions.cs" />
+    <Compile Include="Data\Delayed.cs" />
+    <Compile Include="Data\DelayedExtensions.cs" />
+    <Compile Include="Data\Either.cs" />
+    <Compile Include="Data\EitherExtensions.cs" />
+    <Compile Include="Data\Option.cs" />
+    <Compile Include="Data\OptionExtensions.cs" />
     <Compile Include="Parser.cs" />
     <Compile Include="ParserExtensions.cs" />
     <Compile Include="Position.cs" />
