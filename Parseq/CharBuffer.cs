@@ -69,6 +69,7 @@ namespace Parseq
                 : this.buffer;
 
             Array.Copy(sourceBuffer, this.bufferPtr, destinationBuffer, 0, sourceBuffer.Length - this.bufferPtr);
+            this.bufferCount -= this.bufferPtr;
             this.bufferCount += this.baseReader.Read(destinationBuffer, this.bufferCount, destinationBuffer.Length - this.bufferCount);
             this.bufferPtr = 0;
             this.buffer = destinationBuffer;
