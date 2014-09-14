@@ -56,10 +56,18 @@ namespace Parseq
                     .SelectMany(_ => _);
 
             this.restStream = Delayed.Create(valueFactory: () =>
-                (buffer.Peek(0) == '\n' || (buffer.Peek() == '\r' && buffer.Peek(1) != '\n'))
-                    ? new CharStream(buffer, new Position(position.Line + 1, 1, position.Index + 1))
-                    : new CharStream(buffer, new Position(position.Line, position.Column + 1, position.Index + 1)));
+                (buffer.Peek(1) == CharBuffer.EOF)
+                    ? new CharStream(buffer, position)
+                    : (buffer.Peek(1) == '\n' || (buffer.Peek(1) == '\r' && buffer.Peek(2) != '\n'))
+                        ? new CharStream(buffer, new Position(position.Line + 1, 1, position.Index + 1))
+                        : new CharStream(buffer, new Position(position.Line, position.Column + 1, position.Index + 1)));
             this.buffer = buffer;
+        }
+
+        public CharStream(CharBuffer buffer)
+            : this(buffer, new Position(1, 1, 0))
+        {
+
         }
 
         public IOption<Char> Current

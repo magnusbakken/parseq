@@ -39,6 +39,7 @@
     <None Include="app.config" />
     <None Include="packages.config" />
     <Compile Include="CharBuffer.Spec.fs" />
+    <Compile Include="CharStream.Spec.fs" />
     <Compile Include="Position.Spec.fs" />
     <Compile Include="Unit.Spec.fs" />
   </ItemGroup>
