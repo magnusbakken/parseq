@@ -30,7 +30,6 @@ namespace Parseq
         : System.IO.TextReader
     {
         public const Int32 EOF = -1;
-        public const Int32 LF = '\n';
         public const Int32 DefaultBufferSize = 8;
         public const Int32 MinimumBufferSize = 1;
 
@@ -58,14 +57,14 @@ namespace Parseq
 
         void LookAhead(Int32 k)
         {
-            if (k < 0) throw new ArgumentOutOfRangeException("k");
+            if (k <= 0) throw new ArgumentOutOfRangeException("k");
 
-            if (this.bufferCount - this.bufferPtr > k)
+            if (this.bufferCount - this.bufferPtr >= k)
                 return;
 
             var sourceBuffer = this.buffer;
-            var destinationBuffer = (k >= this.buffer.Length)
-                ? new Char[k + 1]
+            var destinationBuffer = (k > this.buffer.Length)
+                ? new Char[k]
                 : this.buffer;
 
             Array.Copy(sourceBuffer, this.bufferPtr, destinationBuffer, 0, sourceBuffer.Length - this.bufferPtr);
@@ -77,20 +76,20 @@ namespace Parseq
 
         public Int32 Peek(Int32 k)
         {
-            if (k < 0) throw new ArgumentOutOfRangeException("k");
+            if (k <= 0) throw new ArgumentOutOfRangeException("k");
 
             this.LookAhead(k);
-            return (this.bufferPtr + k >= this.bufferCount)
+            return (this.bufferPtr + (k - 1) >= this.bufferCount)
                 ? CharBuffer.EOF
-                : (Int32)this.buffer[this.bufferPtr + k];
+                : (Int32)this.buffer[this.bufferPtr + (k - 1)];
         }
 
         public Int32 Read(Int32 k)
         {
-            if (k < 0) throw new ArgumentOutOfRangeException("k");
+            if (k <= 0) throw new ArgumentOutOfRangeException("k");
 
             var c = this.Peek(k);
-            if (c != CharBuffer.EOF) { this.bufferPtr += k + 1; }
+            if (c != CharBuffer.EOF) { this.bufferPtr += k; }
 
             return c;
         }
@@ -117,12 +116,12 @@ namespace Parseq
 
         public override Int32 Peek()
         {
-            return this.Peek(0);
+            return this.Peek(1);
         }
 
         public override Int32 Read()
         {
-            return this.Read(0);
+            return this.Read(1);
         }
 
         public override String ReadLine()
@@ -130,13 +129,22 @@ namespace Parseq
             var builder = new StringBuilder();
             while (true)
             {
-                var c0 = this.Peek(0);
-                var c1 = this.Peek(1);
-                if (c0 == CharBuffer.EOF) break;
-                if (c0 == '\n' || c0 == '\r' && c1 != '\n') break;
-                builder.Append((Char)c0);
+                switch (this.Peek(1))
+                {
+                    case CharBuffer.EOF:
+                    case '\n':
+                        this.Read(1);
+                        goto exit;
+                    case '\r':
+                        if (this.Peek(2) == '\n') this.Read(1);
+                        this.Read(1);
+                        goto exit;
+                    default:
+                        builder.Append((Char)this.Read(1));
+                        break;
+                }
             }
-
+        exit:
             return builder.ToString();
         }
 
@@ -144,9 +152,7 @@ namespace Parseq
         {
             var builder = new StringBuilder();
             while (this.Peek() != CharBuffer.EOF)
-            {
                 builder.Append((Char)this.Read());
-            }
             return builder.ToString();
         }
 
