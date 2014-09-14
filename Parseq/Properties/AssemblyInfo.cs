@@ -26,18 +26,19 @@ using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("Parseq")]
 [assembly: AssemblyDescription("Monadic Parser Combinator library for C#")]
-
 [assembly: AssemblyProduct("Parseq")]
 [assembly: AssemblyCopyright("Copyright (C) 2012 - 2014 Takahisa Watanabe")]
-
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 [assembly: NeutralResourcesLanguage("en")]
-
 [assembly: AssemblyVersion("3.0.0.0")]
 [assembly: AssemblyFileVersion("3.0.0.0")]
-
 [assembly: InternalsVisibleTo("Test")]
+
+#pragma warning disable 1699
+#if !NOSIGN
+[assembly: AssemblyKeyFile(@"../Parseq.snk")]
+[assembly: AssemblyDelaySign(false)]
+#endif
