@@ -19,6 +19,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  * 
  */
+#define NOSIGN
 using System.Resources;
 using System.Reflection;
 using System.Runtime.CompilerServices;
@@ -36,7 +37,6 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyVersion("3.0.0.0")]
 [assembly: AssemblyFileVersion("3.0.0.0")]
 [assembly: InternalsVisibleTo("Test")]
-
 #pragma warning disable 1699
 #if !NOSIGN
 [assembly: AssemblyKeyFile(@"../Parseq.snk")]
