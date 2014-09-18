@@ -168,6 +168,10 @@ type Spec () =
         let buf = Array.create count '\u0000' in
         charBuffer.Read(buf, index, count)
             |> should equal 3;
+        buf |> should equal [|'f';'o';'o'|];
+        charBuffer.Read(buf, index, count)
+            |> should equal 3;
+        buf |> should equal [|'b';'a';'r'|]
 
     [<TestCase>] member test.
      ``CharBuffer.Read(buf, index, count) throws an ArgumentException if the value of (buf.Length - index) less than count`` () =
